@@ -41,9 +41,15 @@ module Lotus
         #
         # @api private
         # @since 0.1.0
-        def initialize(mapper, uri)
+        def initialize(mapper, uri, options = {})
           super
           @connection = Sequel.connect(@uri)
+          if extension = @options[:extension]
+            @connection.extension *extension
+          end
+          @connection
+        rescue NoMethodError => e
+          @connection
         rescue Sequel::AdapterNotFound => e
           raise DatabaseAdapterNotFound.new(e.message)
         end

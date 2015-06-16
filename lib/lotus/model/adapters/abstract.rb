@@ -44,10 +44,13 @@ module Lotus
         #
         # @param uri [String] the optional connection string to the database
         #
+        # @param options [Hash] the optional connection string to the database
+        #
         # @since 0.1.0
-        def initialize(mapper, uri = nil)
-          @mapper = mapper
-          @uri    = uri
+        def initialize(mapper, uri = nil, options = {})
+          @mapper  = mapper
+          @uri     = uri
+          @options = options
         end
 
         # Creates or updates a record in the database for the given entity.

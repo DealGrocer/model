@@ -51,6 +51,11 @@ module Lotus
         # @since 0.2.0
         attr_reader :class_name
 
+        # @return [String] the adapter extension
+        #
+        # @since 0.2.0
+        attr_reader :extension
+
         # Initialize an adapter configuration instance
         #
         # @param options [Hash] configuration options
@@ -64,6 +69,7 @@ module Lotus
         def initialize(**options)
           @type = options[:type]
           @uri  = options[:uri]
+          @extension  = options[:extension]
           @class_name ||= Lotus::Utils::String.new("#{@type}_adapter").classify
         end
 
@@ -94,7 +100,7 @@ module Lotus
         def instantiate_adapter(mapper)
           begin
             klass = Lotus::Utils::Class.load!(class_name, Lotus::Model::Adapters)
-            klass.new(mapper, uri)
+            klass.new(mapper, uri, extension: extension)
           rescue NameError
             raise AdapterNotFound.new(class_name)
           rescue => e

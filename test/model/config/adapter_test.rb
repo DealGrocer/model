@@ -16,7 +16,7 @@ describe Lotus::Model::Config::Adapter do
     end
 
     describe 'given adapter type is SQL' do
-      let(:config) { Lotus::Model::Config::Adapter.new(type: :sql, uri: SQLITE_CONNECTION_STRING) }
+      let(:config) { Lotus::Model::Config::Adapter.new(type: :sql, uri: SQLITE_CONNECTION_STRING, extension: [:pg_json]) }
 
       it 'instantiates SQL adapter' do
         adapter = config.build(mapper)
