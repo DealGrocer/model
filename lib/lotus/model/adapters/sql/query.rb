@@ -572,6 +572,21 @@ module Lotus
             end
           end
 
+          # Returns a unique record for the current conditions.
+          #
+          # @param column [Symbol] the column name
+          #
+          # @return result
+          #
+          # @example
+          #
+          #    query.distinct(author_id)
+          #
+          #    # => SELECT DISTINCT author_id FROM `articles`
+          def distinct(column)
+            run.distinct(column)
+          end
+
           # Apply all the conditions and returns a filtered collection.
           #
           # This operation is idempotent, and the returned result didn't
